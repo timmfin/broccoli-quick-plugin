@@ -4,7 +4,8 @@ var symlinkOrCopy = require('symlink-or-copy');
 
 function QuickPlugin(inputNodes, optionsAndMethods) {
   var optionsToPassUp = {},
-      creationPropertiesObject = {};
+      creationPropertiesObject = {},
+      originalBuild;
 
   if (!optionsAndMethods.build) {
     throw new Error("You must define a build function for your QuickPlugin");
@@ -39,7 +40,6 @@ function QuickPlugin(inputNodes, optionsAndMethods) {
     optionsToPassUp.persistentOutput = true;
 
     originalBuild = optionsAndMethods.build;
-    console.log("originalBuild", originalBuild);
 
     optionsAndMethods.build = function() {
 
@@ -57,17 +57,12 @@ function QuickPlugin(inputNodes, optionsAndMethods) {
     }
   }
 
-  console.log("optionsAndMethods", optionsAndMethods);
-  console.log("optionsAndMethods.build", optionsAndMethods.build);
-
   // Other methods and properties to set on the anonymous plugin's prototype
   Object.keys(optionsAndMethods).forEach(function(key) {
     creationPropertiesObject[key] = {
       value: optionsAndMethods[key]
     }
   });
-  console.log("creationPropertiesObject", creationPropertiesObject);
-  console.log("creationPropertiesObject.build.value", creationPropertiesObject.build.value);
 
   // Create the anonymous plugin and return it
   TempPlugin.prototype = Object.create(Plugin.prototype);
@@ -75,7 +70,6 @@ function QuickPlugin(inputNodes, optionsAndMethods) {
 
   function TempPlugin(inputNodesToPassAlong) {
     Object.defineProperties(this, creationPropertiesObject);
-    console.log("this.build", this.build);
     Plugin.call(this, inputNodesToPassAlong, optionsToPassUp);
   }
 
