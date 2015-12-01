@@ -68,8 +68,9 @@ function QuickPlugin(inputNodes, optionsAndMethods) {
   TempPlugin.prototype = Object.create(Plugin.prototype);
   TempPlugin.prototype.constructor = TempPlugin;
 
+  Object.defineProperties(TempPlugin.prototype, creationPropertiesObject);
+
   function TempPlugin(inputNodesToPassAlong) {
-    Object.defineProperties(this, creationPropertiesObject);
     Plugin.call(this, inputNodesToPassAlong, optionsToPassUp);
   }
 
