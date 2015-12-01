@@ -27,6 +27,8 @@ Since you can no longer do this:
 ```js
 // How you used to be able to have a anonymous plugin pre broccoli v1.0.0-beta
 return {
-  read: function(readTree) { /* ... */ }
+  read: function(readTree) {
+    /* Your own quick little plugin code */
+  }
 }
 ```
