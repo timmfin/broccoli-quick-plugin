@@ -1,6 +1,6 @@
 {
   "name": "broccoli-quick-plugin",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A convenient way to make a quick broccoli node wrapper with having to fully create a new plugin constructor/class that derives from broccoli-plugin.",
   "main": "index.js",
   "scripts": {
